@@ -13,7 +13,7 @@ export const options: DataSourceOptions & SeederOptions = {
   database: DbEnvs.dbDatabase,
   username: DbEnvs.dbUsername,
   password: DbEnvs.dbPassword,
-  synchronize: DbEnvs.dbSynchronize,
+  synchronize: true,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   namingStrategy: new SnakeNamingStrategy(),
 
