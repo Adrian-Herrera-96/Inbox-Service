@@ -15,11 +15,11 @@ export class Procedure {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'procedure_type', type: 'text' })
-  procedureType: string;
+  @Column({ name: 'type', type: 'text' })
+  type: string;
 
-  @Column({ name: 'procedure_id', type: 'text' })
-  procedureId: string;
+  @Column({ name: 'type_id', type: 'text' })
+  typeId: string;
 
   @ManyToOne(() => Workflow)
   @JoinColumn({ name: 'workflow_id' })
