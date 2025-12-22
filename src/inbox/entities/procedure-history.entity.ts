@@ -2,12 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  ManyToOne,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { WorkflowState } from '../../workflows/entities/workflow-state.entity';
+import { ProcedureStatus } from './procedure-status.entity';
 
 @Entity('procedure_history', { schema: 'inbox' })
 export class ProcedureHistory {
@@ -26,8 +27,9 @@ export class ProcedureHistory {
   @Column({ name: 'type_id', type: 'text' })
   typeId: string;
 
-  @Column({ name: 'procedure_status_id' })
-  procedureStatusId: number;
+  @ManyToOne(() => ProcedureStatus)
+  @JoinColumn({ name: 'procedure_status_id' })
+  procedureStatus: ProcedureStatus;
 
   @ManyToOne(() => WorkflowState)
   @JoinColumn({ name: 'current_wf_state_id' })
