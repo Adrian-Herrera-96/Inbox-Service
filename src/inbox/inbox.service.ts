@@ -1,34 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { WorkflowItem } from './entities/workflow-item.entity';
+import { FindProcedureStateDto } from './dtos/find-procedure-state.dto';
+import { ProcedureStateDto } from './dtos/procedure-state.dto';
+import { Procedure } from './entities/procedure.entity';
 
 @Injectable()
 export class InboxService {
   constructor(
-    @InjectRepository(WorkflowItem)
-    private readonly workflowItemRepository: Repository<WorkflowItem>,
+    @InjectRepository(Procedure)
+    private readonly procedureRepository: Repository<Procedure>,
   ) {}
 
-  async createWorkflowItem(workflowItem: Partial<WorkflowItem>): Promise<WorkflowItem> {
-    const newWorkflowItem = this.workflowItemRepository.create(workflowItem);
-    return this.workflowItemRepository.save(newWorkflowItem);
-  }
+  async findProcedureCurrentState(
+    data: FindProcedureStateDto,
+  ): Promise<ProcedureStateDto> {
+    const { typeId, type } = data;
+    const procedure = await this.procedureRepository.findOne({
+      where: { typeId, type },
+      relations: ['currentWfState'],
+    });
 
-  async findAllWorkflowItems(): Promise<WorkflowItem[]> {
-    return this.workflowItemRepository.find();
-  }
+    if (!procedure || !procedure.currentWfState) {
+      throw new RpcException({
+        message: `No se pudo encontrar el estado actual para el procedimiento con typeId #${typeId} y type '${type}'`,
+        code: HttpStatus.NOT_FOUND,
+      });
+    }
 
-  async findOneWorkflowItem(id: string): Promise<WorkflowItem> {
-    return this.workflowItemRepository.findOneBy({ id });
-  }
-
-  async updateWorkflowItem(id: string, workflowItem: Partial<WorkflowItem>): Promise<WorkflowItem> {
-    await this.workflowItemRepository.update(id, workflowItem);
-    return this.workflowItemRepository.findOneBy({ id });
-  }
-
-  async removeWorkflowItem(id: string): Promise<void> {
-    await this.workflowItemRepository.delete(id);
+    return {
+      name: procedure.currentWfState.name,
+      shortened: procedure.currentWfState.firstShortened,
+    };
   }
 }
