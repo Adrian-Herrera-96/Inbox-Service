@@ -4,11 +4,12 @@ import { InboxController } from './inbox.controller';
 import { InboxService } from './inbox.service';
 import { Procedure } from './entities/procedure.entity';
 import { ProcedureHistory } from './entities/procedure-history.entity';
+import { ProcedureStatus } from './entities/procedure-status.entity';
 import { WorkflowsModule } from '../workflows/workflows.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Procedure, ProcedureHistory]),
+    TypeOrmModule.forFeature([Procedure, ProcedureHistory, ProcedureStatus]),
     WorkflowsModule,
   ],
   controllers: [InboxController],
