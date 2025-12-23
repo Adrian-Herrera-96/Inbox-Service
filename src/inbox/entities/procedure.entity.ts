@@ -19,8 +19,8 @@ export class Procedure {
   @Column({ name: 'type', type: 'text' })
   type: string;
 
-  @Column({ name: 'type_id', type: 'text' })
-  typeId: string;
+  @Column({ name: 'type_id', type: 'int' })
+  typeId: number;
 
   @ManyToOne(() => Workflow)
   @JoinColumn({ name: 'workflow_id' })
