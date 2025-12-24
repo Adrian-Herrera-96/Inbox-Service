@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { WorkflowState } from '../../workflows/entities/workflow-state.entity';
+import { WorkflowArea } from '../../workflows/entities/workflow-area.entity';
 import { Workflow } from '../../workflows/entities/workflow.entity';
 import { ProcedureStatus } from './procedure-status.entity';
 
@@ -26,9 +26,9 @@ export class Procedure {
   @JoinColumn({ name: 'workflow_id' })
   workflow: Workflow;
 
-  @ManyToOne(() => WorkflowState)
+  @ManyToOne(() => WorkflowArea)
   @JoinColumn({ name: 'current_wf_state_id' })
-  currentWfState: WorkflowState;
+  currentWfArea: WorkflowArea;
 
   @ManyToOne(() => ProcedureStatus)
   @JoinColumn({ name: 'procedure_status_id' })
