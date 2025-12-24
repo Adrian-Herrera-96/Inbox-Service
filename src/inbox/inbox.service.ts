@@ -3,8 +3,8 @@ import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FindProcedureStateDto } from './dtos/find-procedure-state.dto';
-import { ProcedureStateDto } from './dtos/procedure-state.dto';
 import { Procedure } from './entities/procedure.entity';
+import { ProcedureCurrentArea } from './interfaces/procedure-current-area';
 
 @Injectable()
 export class InboxService {
@@ -15,23 +15,23 @@ export class InboxService {
 
   async findProcedureCurrentState(
     data: FindProcedureStateDto,
-  ): Promise<ProcedureStateDto> {
+  ): Promise<ProcedureCurrentArea> {
     const { typeId, type } = data;
     const procedure = await this.procedureRepository.findOne({
       where: { typeId, type },
-      relations: ['currentWfState'],
+      relations: ['currentWfArea'],
     });
 
-    if (!procedure || !procedure.currentWfState) {
+    if (!procedure || !procedure.currentWfArea) {
       throw new RpcException({
-        message: `No se pudo encontrar el estado actual para el procedimiento con typeId #${typeId} y type '${type}'`,
+        message: `No se pudo encontrar el estado actual para el trámite con id ${typeId} y tipo de trámite '${type}'`,
         code: HttpStatus.NOT_FOUND,
       });
     }
 
     return {
-      name: procedure.currentWfState.name,
-      shortened: procedure.currentWfState.firstShortened,
+      name: procedure.currentWfArea.name,
+      shortened: procedure.currentWfArea.Shortened,
     };
   }
 }
