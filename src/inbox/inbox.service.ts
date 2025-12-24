@@ -2,10 +2,9 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { FindProcedureStateDto } from './dtos/find-procedure-state.dto';
+import { FindProcedureCurrentAreaDto } from './dtos/find-procedure-current-area.dto';
 import { Procedure } from './entities/procedure.entity';
 import { ProcedureCurrentArea } from './interfaces/procedure-current-area';
-
 @Injectable()
 export class InboxService {
   constructor(
@@ -13,8 +12,8 @@ export class InboxService {
     private readonly procedureRepository: Repository<Procedure>,
   ) {}
 
-  async findProcedureCurrentState(
-    data: FindProcedureStateDto,
+  async findProcedureCurrentArea(
+    data: FindProcedureCurrentAreaDto,
   ): Promise<ProcedureCurrentArea> {
     const { typeId, type } = data;
     const procedure = await this.procedureRepository.findOne({
