@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class FindProcedureStateDto {
+export class FindProcedureCurrentAreaDto {
   @IsNumber()
   @IsNotEmpty()
   typeId: number;
