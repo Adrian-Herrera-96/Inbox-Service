@@ -27,7 +27,7 @@ export class Procedure {
   workflow: Workflow;
 
   @ManyToOne(() => WorkflowArea)
-  @JoinColumn({ name: 'current_wf_state_id' })
+  @JoinColumn({ name: 'current_wf_area_id' })
   currentWfArea: WorkflowArea;
 
   @ManyToOne(() => ProcedureStatus)

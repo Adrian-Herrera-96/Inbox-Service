@@ -32,11 +32,11 @@ export class ProcedureHistory {
   procedureStatus: ProcedureStatus;
 
   @ManyToOne(() => WorkflowArea)
-  @JoinColumn({ name: 'current_wf_state_id' })
+  @JoinColumn({ name: 'current_wf_area_id' })
   currentWfArea: WorkflowArea;
 
   @ManyToOne(() => WorkflowArea)
-  @JoinColumn({ name: 'next_wf_state_id' })
+  @JoinColumn({ name: 'next_wf_area_id' })
   nextWfArea: WorkflowArea;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
