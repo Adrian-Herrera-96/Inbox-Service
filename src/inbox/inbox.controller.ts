@@ -7,8 +7,8 @@ import { InboxService } from './inbox.service';
 export class InboxController {
   constructor(private readonly inboxService: InboxService) {}
 
-  @MessagePattern('procedure.findCurrentState')
-  findProcedureCurrentState(@Payload() data: FindProcedureCurrentAreaDto) {
+  @MessagePattern('procedure.findCurrentArea')
+  findProcedureCurrentArea(@Payload() data: FindProcedureCurrentAreaDto) {
     return this.inboxService.findProcedureCurrentArea(data);
   }
 }
