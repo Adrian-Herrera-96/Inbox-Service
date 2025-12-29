@@ -21,10 +21,10 @@ export class WorkflowSequence {
   workflow: Workflow;
 
   @ManyToOne(() => WorkflowArea, { nullable: false })
-  @JoinColumn({ name: 'from_wf_state_id' })
-  fromWfState: WorkflowArea;
+  @JoinColumn({ name: 'from_wf_area_id' })
+  fromWfArea: WorkflowArea;
 
   @ManyToOne(() => WorkflowArea, { nullable: false })
-  @JoinColumn({ name: 'to_wf_state_id' })
-  toWfState: WorkflowArea;
+  @JoinColumn({ name: 'to_wf_area_id' })
+  toWfArea: WorkflowArea;
 }
