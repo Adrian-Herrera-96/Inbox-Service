@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { WorkflowState } from '../../workflows/entities/workflow-state.entity';
+import { WorkflowArea } from '../../workflows/entities/workflow-area.entity';
 import { ProcedureStatus } from './procedure-status.entity';
 
 @Entity('procedure_history', { schema: 'inbox' })
@@ -31,13 +31,13 @@ export class ProcedureHistory {
   @JoinColumn({ name: 'procedure_status_id' })
   procedureStatus: ProcedureStatus;
 
-  @ManyToOne(() => WorkflowState)
-  @JoinColumn({ name: 'current_wf_state_id' })
-  currentWfState: WorkflowState;
+  @ManyToOne(() => WorkflowArea)
+  @JoinColumn({ name: 'current_wf_area_id' })
+  currentWfArea: WorkflowArea;
 
-  @ManyToOne(() => WorkflowState)
-  @JoinColumn({ name: 'next_wf_state_id' })
-  nextWfState: WorkflowState;
+  @ManyToOne(() => WorkflowArea)
+  @JoinColumn({ name: 'next_wf_area_id' })
+  nextWfArea: WorkflowArea;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;

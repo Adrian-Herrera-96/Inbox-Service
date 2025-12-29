@@ -5,8 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { WorkflowArea } from './workflow-area.entity';
 import { Workflow } from './workflow.entity';
-import { WorkflowState } from './workflow-state.entity';
 
 @Entity('workflow_sequences')
 export class WorkflowSequence {
@@ -20,11 +20,11 @@ export class WorkflowSequence {
   @JoinColumn({ name: 'workflow_id' })
   workflow: Workflow;
 
-  @ManyToOne(() => WorkflowState, { nullable: false })
-  @JoinColumn({ name: 'from_wf_state_id' })
-  fromWfState: WorkflowState;
+  @ManyToOne(() => WorkflowArea, { nullable: false })
+  @JoinColumn({ name: 'from_wf_area_id' })
+  fromWfArea: WorkflowArea;
 
-  @ManyToOne(() => WorkflowState, { nullable: false })
-  @JoinColumn({ name: 'to_wf_state_id' })
-  toWfState: WorkflowState;
+  @ManyToOne(() => WorkflowArea, { nullable: false })
+  @JoinColumn({ name: 'to_wf_area_id' })
+  toWfArea: WorkflowArea;
 }

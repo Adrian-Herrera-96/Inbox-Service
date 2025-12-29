@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('workflow_states')
-export class WorkflowState {
+@Entity('workflow_areas')
+export class WorkflowArea {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,8 +11,8 @@ export class WorkflowState {
   @Column({ name: 'name', type: 'varchar', length: 100, nullable: false })
   name: string;
 
-  @Column({ name: 'first_shortened', type: 'varchar', length: 50, nullable: true })
-  firstShortened: string;
+  @Column({ name: 'shortened', type: 'varchar', length: 50, nullable: true })
+  Shortened: string;
 
   @Column({ name: 'sequence_number', type: 'int', nullable: false })
   sequenceNumber: number;
